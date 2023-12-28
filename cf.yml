@@ -61,6 +61,14 @@ Resources:
       AuthType: NONE
       TargetFunctionArn: !Ref ApiFunction
 
+  ApiUrlFunctionPermissions:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref ApiFunctionURL
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: NONE
+
   BlogFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -79,6 +87,14 @@ Resources:
     Properties: 
       AuthType: NONE
       TargetFunctionArn: !Ref BlogFunction
+
+  BlogFunctionPermissions:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref BlogFunctionURL
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: NONE
 
   CloudFrontDistribution:
     DependsOn:
@@ -292,6 +308,7 @@ Resources:
   #       - Name: CanaryName
   #         Value: !Join ['', ['canary_', !Ref AWS::StackName]]
   #     ComparisonOperator: LessThanThreshold
+
 
 Outputs:
   API: 
