@@ -182,7 +182,8 @@ Resources:
   SSLCertificate: 
     Type: "AWS::CertificateManager::Certificate"
     Properties: 
-      DomainName: !Ref DOMAIN
+      DomainName:
+        - !Join ['', [ "*.", !Ref DOMAIN]]
       ValidationMethod: DNS
 
   FrontCloudFront:
