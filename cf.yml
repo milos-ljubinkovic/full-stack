@@ -106,7 +106,7 @@ Resources:
         Aliases:
           - !Join ['', [ "api-", !Ref AWS::StackName, ".", !Ref DOMAIN]]
         ViewerCertificate:
-          AcmCertificateArn: arn:aws:acm:us-east-1:841805187071:certificate/0e0cc568-ea74-4df3-a4c1-e51e6b3c3877
+          AcmCertificateArn: !Ref SSLCertificate
           MinimumProtocolVersion: TLSv1.2_2019
           SslSupportMethod: sni-only
         DefaultCacheBehavior:
@@ -178,16 +178,24 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Ref S3Bucket
 
+
+  SSLCertificate: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: !Ref DOMAIN
+      ValidationMethod: DNS
+
   FrontCloudFront:
     DependsOn:
       - S3Bucket
+      - SSLCertificate
     Type: "AWS::CloudFront::Distribution"
     Properties:
       DistributionConfig:
         Aliases:
           - !Join ['', [ "web-", !Ref AWS::StackName, ".", !Ref DOMAIN]]
         ViewerCertificate:
-          AcmCertificateArn: arn:aws:acm:us-east-1:841805187071:certificate/0e0cc568-ea74-4df3-a4c1-e51e6b3c3877
+          AcmCertificateArn: !Ref SSLCertificate
           MinimumProtocolVersion: TLSv1.2_2019
           SslSupportMethod: sni-only
         CustomErrorResponses:
