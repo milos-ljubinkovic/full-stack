@@ -30,4 +30,4 @@ jobs:
     - name: deploy
       run: |
         chmod +x ./deploy.sh
-        ./deploy.sh ${{ env.STACK_NAME }} ${{ env.DOMAIN }}
+        ./deploy.sh ${{ vars.STACK_NAME }} ${{ vars.DOMAIN }}
