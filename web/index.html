@@ -1,0 +1,10 @@
+<html>
+    <head>
+        <script>
+            let api = window.location.host.replace(/web-/, "api-");
+            fetch(window.location.protocol + "//" + api).then((a) => a.json().then((b) => (document.getElementById("out").innerHTML += b)));
+        </script>
+    </head>
+    website on the internet
+    <div id="out"></div>
+</html>
