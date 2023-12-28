@@ -1,6 +1,8 @@
 STACK_NAME=$1
 DOMAIN=$2
 
+echo $STACK_NAME
+echo $DOMAIN
 ACCOUNT=`aws sts get-caller-identity --query "Account" --output text` # get the AWS account it
 HOSTED_ZONE=`aws route53 list-hosted-zones-by-name --dns-name $DOMAIN --query "HostedZones[0].Id" --output text` # get the hosted zone id for the domain
 BUCKET=deploy-bucket-$ACCOUNT 
