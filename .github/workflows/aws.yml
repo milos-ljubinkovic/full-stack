@@ -28,4 +28,6 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: deploy
-      run: chmod +x ./deploy.sh && ./deploy.sh $STACK_NAME $DOMAIN
+      run: |
+        chmod +x ./deploy.sh
+        ./deploy.sh ${{ env.STACK_NAME }} ${{ env.DOMAIN }}
